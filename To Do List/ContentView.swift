@@ -9,15 +9,30 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        List{
-        Text("First Thing")
-        Text("Second Thing")
-        Text("Third Thing")
-        Text("Fourth Thing")
-        Text("Fifth Thing")
+
+    @State var things = ["First Thing", "Second Thing", "Third Thing", "Fourth Thing", "Fifth Thing"]
+
+var body: some View {
+
+    NavigationView {
+            List {
+                ForEach(things, id: \.self) { thing in
+                    Text(thing)
+                }
+                .onMove(perform: { indices, newOffset in
+
+                    self.things.move(fromOffsets: indices, toOffset: newOffset)
+                }
+                )
+
+                .onDelete(perform: { indexSet in
+
+                    self.things.remove(atOffsets: indexSet)}
+                )
+            }
+            .navigationBarTitle("Things")
+            .navigationBarItems(leading: EditButton())
         }
-    .navigationBarTitle("Stuff")
     }
 }
 
