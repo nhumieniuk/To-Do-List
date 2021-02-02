@@ -7,12 +7,11 @@
 //
 
 import SwiftUI
-
 struct ContentView: View {
 
 @ObservedObject var toDoList = ToDoList()
 
-var body: some View {
+    var body: some View {
 
     NavigationView {
             List {
@@ -24,18 +23,18 @@ var body: some View {
                         Text(item.description)
                     }
                     Spacer()
-                    Text(item.dueDate, style: .date)
+                        Text(item.dueDate, style: .date)
                 }
                 }
                 .onMove(perform: { indices, newOffset in
 
-                    self.toDoList.items.move(fromOffsets: indices, toOffset: newOffset)
+                    toDoList.items.move(fromOffsets: indices, toOffset: newOffset)
                 }
                 )
 
                 .onDelete(perform: { indexSet in
 
-                    self.toDoList.items.remove(atOffsets: indexSet)}
+                    toDoList.items.remove(atOffsets: indexSet)}
                 )
             }
             .navigationBarTitle("To Do List")
